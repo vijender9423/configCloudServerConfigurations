@@ -1,5 +1,164 @@
-server:
-  port: 8090
+# ===================================================================
+# Spring Boot configuration.
+#
+# This configuration will be overridden by the Spring profile you use,
+# for example application-dev.yml if you use the "dev" profile.
+#
+# ===================================================================
 
-name:
-  my: vijender
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+# set -Dspring.profiles.active=<dev|sit|int|prod> as JVM argument to run in desired profile
+spring:
+    devtools: 
+         restart: 
+             exclude: logs/**
+    application:
+        name: pricing-service
+    # You might wanna enable Keycloak security, cache and Cloud Config later on
+    cache:
+        type: NONE
+    autoconfigure:
+        exclude: org.keycloak.adapters.springboot.KeycloakAutoConfiguration, io.opentracing.contrib.spring.web.starter.ServerTracingAutoConfiguration,io.opentracing.contrib.spring.cloud.feign.FeignTracingAutoConfiguration
+    cloud:
+        config:
+            enabled: false
+            discovery:
+                enabled: false
+    profiles:
+        # The commented value for `active` can be replaced with valid Spring profiles to load.
+        # Otherwise, it will be filled in by maven when building the WAR file
+        # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
+        active: #spring.profiles.active#
+    jpa:
+        show-sql: false
+        database-platform: org.hibernate.dialect.Oracle12cDialect
+        database: ORACLE
+        open-in-view: false
+        properties:
+            hibernate.jdbc.time_zone: UTC
+            integration.envers.enabled: false
+        hibernate:
+            ddl-auto: none
+            naming:
+                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+                implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    quartz: 
+        job-store-type: jdbc       
+        properties:
+            org:
+                quartz:
+                    jdbc:
+                        initialize-schema: never
+                    scheduler:
+                        jobFactory:
+                            class: org.quartz.simpl.SimpleJobFactory
+                    jobStore:
+                        class: org.quartz.impl.jdbcjobstore.JobStoreTX
+                        driverDelegateClass: org.quartz.impl.jdbcjobstore.oracle.OracleDelegate
+                        tablePrefix: QRTZ_
+                        isClustered: false
+
+    flyway:
+        enabled: false
+        baseline-on-migrate: true
+    messages:
+        basename: i18n/messages
+    mvc:
+        favicon:
+            enabled: false
+    thymeleaf:
+        mode: HTML
+# You might wanna enable Service Discovery later on
+eureka:
+    client:
+        enabled: false
+        register-with-eureka: false
+        fetch-registry: false
+        serviceUrl:
+            defaultZone: http://services-registry-server.dev.apps.ocp.uaeexchange.com/eureka/
+server:
+    port: 8090
+    servlet:
+        session:
+            cookie:
+                http-only: true
+    
+# ===================================================================
+# Application specific properties
+# Add your own application properties here, see the ApplicationProperties class
+# ===================================================================
+
+application:        
+    #onboarding:
+        #services:
+            #draweeBank.url: "http://unimoni.wavelabs.in/api/v1/onboarding/draweeBanks"
+            #serviceProvider.url: "http://unimoni.wavelabs.in/api/v1/onboarding/serviceprovider"
+            #product.url: "http://unimoni.wavelabs.in/api/v1/onboarding/productTypes"
+            #currency.url: "http://bank-onboarding-service-snap.dev.apps.ocp.uaeexchange.com/api/v1/onboarding/currency"
+    cors:
+        allowed-origins: "*"
+        allowed-methods: "*"
+        allowed-headers: "*"
+        exposed-headers: "Authorization,Link,X-Total-Count"
+        allow-credentials: true
+        max-age: 1800
+    async:
+        core-pool-size: 2
+        max-pool-size: 50
+        queue-capacity: 10000
+    swagger:
+        default-include-pattern: /api/.*
+        title: Pricing Engine API
+        description: Pricing Engine API documentation
+        version: 0.0.1
+        terms-of-service-url:
+        contact-name:
+        contact-url:
+        contact-email:
+        license:
+        license-url:
+    thomson:
+        ads-server-A: 159.220.108.135
+        ads-server-B: 159.220.108.197
+        username: LO4_03_RHB_AE71394
+        service-name: hEDD
+        rssl-port: 14002
+        ssl-port: 8101   
+        
+    defaultDateFormat: yyyy-MM-dd
+    defaultDatetimeFormat: yyyy-MM-dd hh:mm a
+    defaultZonedDatetimeFormat: yyyy-MM-dd HH:mm:ss #yyyy-MM-dd hh:mm:ssa (O)
+    display-zone-id: UTC # UTC, Asia/Kolkata, Asia/Dubai
+    
+    download-chunk-size: 100
+    
+    config:
+        service-providers:
+            - UAE
+            - UK
+            - HongKong
+            - Malaysia
+            - Australia
+        products:
+            - Remittance
+            - Forex
+            - Prepaid Card
+        currencies:
+            - INR
+            - AED
+            - AUD
+            - GBP
+            - USD
+            - CAD
+        var-reasons:
+            - High volatility
+            - Normal weekend
+            - Long weekend
+            - Bank holiday
+            - Others
+        
+
