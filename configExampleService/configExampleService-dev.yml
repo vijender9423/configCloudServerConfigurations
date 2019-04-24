@@ -10,8 +10,8 @@ Spring:
     cloud:
         config:
             allowOverride: true
-            overrideNone: false
-            overrideSystemProperties: true
+            overrideNone: true
+            overrideSystemProperties: false
   
   
 TestingConfigProp:
