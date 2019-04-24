@@ -10,7 +10,8 @@ Spring:
   cloud:
     config:
       allowOverride: true
-      overrideNone: true
+      failFast: true
+      overrideNone: false
       overrideSystemProperties: false
   
   
