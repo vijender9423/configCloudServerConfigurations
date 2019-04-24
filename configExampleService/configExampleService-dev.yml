@@ -6,12 +6,12 @@ name:
   is: surender
   
   
-Spring:
-    cloud:
-        config:
-            allowOverride: true
-            overrideNone: true
-            overrideSystemProperties: false
+Spring: 
+  cloud:
+    config:
+      allowOverride: true
+      overrideNone: true
+      overrideSystemProperties: false
   
   
 TestingConfigProp:
