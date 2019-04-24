@@ -11,7 +11,7 @@ Spring:
     config:
       allowOverride: true
       failFast: true
-      overrideNone: false
+      overrideNone: true
       overrideSystemProperties: true
   
   
