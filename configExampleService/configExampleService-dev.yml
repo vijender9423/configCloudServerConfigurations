@@ -6,6 +6,14 @@ name:
   is: surender
   
   
+Spring:
+    cloud:
+        config:
+            allowOverride: true
+            overrideNone: true
+            overrideSystemProperties: false
+  
+  
 TestingConfigProp:
   firstName: surender
   lastName: singh  
