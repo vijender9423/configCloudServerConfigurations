@@ -5,6 +5,3 @@ name:
   my: "{cipher}fb4cc519b6777115d3f302ddbf0d8f2d74104bef0774043e735d3c9d9c2e4a7f"
   is: surender
 
-TestingConfigProp:
-  firstName: surender
-  lastName: singh
