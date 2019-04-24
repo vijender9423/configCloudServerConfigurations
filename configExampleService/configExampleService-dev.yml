@@ -12,7 +12,7 @@ Spring:
       allowOverride: true
       failFast: true
       overrideNone: false
-      overrideSystemProperties: false
+      overrideSystemProperties: true
   
   
 TestingConfigProp:
