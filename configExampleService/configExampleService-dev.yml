@@ -6,11 +6,7 @@ name:
   is: surender
   
   
-Spring: 
-  cloud:
-    config:
-      allowOverride: true
-      override: true
+
      
   
   
