@@ -15,6 +15,6 @@ Spring:
   
   
 TestingConfigProp:
-  firstName: surenderDEV
+  firstName: surenderDefault
   lastName: singh  
 
